@@ -1,0 +1,11 @@
+{% extends "blog/base.html"%}
+
+{% block content%}
+    <h2>Olete välga loginud!</h2>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            <a href="{% url 'login'%}">Logi sisse!</a>
+        </small>
+    </div>
+{% endblock content%}
+
