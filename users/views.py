@@ -11,7 +11,7 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(
-                request, f'Kasutaja { username } loodud, võite sisse logida !')
+                request, f'Kasutaja loodud! Võite sisse logida')
             return redirect('login')
     else:
         form = UserRegisterForm()
@@ -22,19 +22,22 @@ def register(request):
 def profile(request):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(
-            request.POST, request.FILES, instance=request.user.profile)
+        p_form = ProfileUpdateForm(request.POST,
+                                   request.FILES,
+                                   instance=request.user.profile)
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
-            messages.success(
-                request, f'Profiil uuendatud !')
+            messages.success(request, f'Andmed uuendatud!')
             return redirect('profile')
+
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
-    contex = {
+
+    context = {
         'u_form': u_form,
         'p_form': p_form
     }
-    return render(request, 'users/profile.html', {'title': 'Profiil'}, contex)
+
+    return render(request, 'users/profile.html', context)
